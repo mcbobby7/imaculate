@@ -1,10 +1,8 @@
 const express = require('express');
 const app = express();
 
-app.use((req, res, next) => {
-    res.status(200).json({
-        message: 'it works'
-    });
-});
+const bookingRoute = require('./api/routes/booking')
+
+app.use('/bookings', bookingRoute);
 
 module.exports = app;
