@@ -19,6 +19,7 @@ app.use((req, res, next) => {
         res.header('Access-Control-Allow-Methods', '*');
         return res.status(200).json({})
     }
+    next();
 })
 
 app.use('/bookings', bookingRoute);
