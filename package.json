@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/mcbobby7/devHood-API/issues"
   },
-  "homepage": "https://github.com/mcbobby7/devHood-API#readme"
+  "homepage": "https://github.com/mcbobby7/devHood-API#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
