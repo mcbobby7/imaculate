@@ -87,7 +87,29 @@ router.get('/:eventId', (req, res, next) => {
         
 });
 
-
+router.patch('/:eventId', (req, res, next) => {
+    const id = req.params.eventId;
+    const updateOps = {};
+    for (const ops of req.body) {
+        updateOps[ops.propName] = ops.value;
+    }
+    Event.update({ _id: id}, { $set: updateOps })
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: 'Event updated successfully',
+                request: {
+                    type: "GET",
+                    url: "http://localhost:3000/events/" + id
+                }
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            });
+        });
+});
 
 router.delete('/:eventId', (req, res, next) => {
     const id = req.params.eventId;
