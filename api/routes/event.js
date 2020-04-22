@@ -60,22 +60,37 @@ router.post('/', (req, res, next) => {
     });
 });
 
-router.get('/:bookingId', (req, res, next) => {
-    const id = req.params.bookingId;
-        res.status(200).json({
-        message: 'handling single'
+router.get('/:eventId', (req, res, next) => {
+    const id = req.params.eventId;
+    Event.findById(id)
+    .select("title, description price date creator _id")
+    .exec()
+    .then(doc => {
+        if (doc) {
+            res.status(200).json({
+                event: doc,
+                request: {
+                    type: "GET",
+                    url: "http://localhost:3000/events/" + doc._id
+                }
+            });
+        } else {
+            res.status(404)
+            .json({
+                message: "No valid entry found for Event"
+            })
+        }
+    })
+    .catch(err => {
+        res.status(500).json({ error: err});
     });
+        
 });
 
-router.patch('/:bookingId', (req, res, next) => {
-    const id = req.params.bookingId;
-        res.status(200).json({
-        message: 'patch single'
-    });
-});
 
-router.delete('/:bookingId', (req, res, next) => {
-    const id = req.params.bookingId;
+
+router.delete('/:eventId', (req, res, next) => {
+    const id = req.params.eventId;
         res.status(200).json({
         message: 'delete single'
     });
