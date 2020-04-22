@@ -45,7 +45,18 @@ router.post('/', (req, res, next) => {
 
     res.status(200).json({
         message: "event created successfully",
-        createdProperty: {event}
+        createdProperty: {
+            _id: result._id,
+            title: result.title,
+            description: result.description,
+            price: result.price,
+            date: result.price,
+            creator: result.creator,
+            request: {
+                type: "GET",
+                url: "http://localhost:3000/events/" + result._id
+            }
+        }
     });
 });
 
