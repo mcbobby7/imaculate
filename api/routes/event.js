@@ -8,7 +8,24 @@ router.get('/', (req, res, next) => {
     .select("title, description price date creator _id")
     .exec()
     .then(docs => {
-        res.status(200).json(docs);
+        const response = {
+            count: docs.length,
+            events: docs.map(doc => {
+                return {
+                    _id: doc._id,
+                    title: doc.title,
+                    description: doc.description,
+                    price: doc.price,
+                    date: doc.price,
+                    creator: doc.creator,
+                    request: {
+                        type: "GET",
+                        url: "http://localhost:4000/events/" + doc._id
+                    }
+                }
+            })
+        }
+        res.status(200).json(response);
     })
     .catch(err => {
         res.status(500).json({
@@ -27,25 +44,25 @@ router.post('/', (req, res, next) => {
         creator: req.body.creator,
     });
     event.save().then(result => {
-        console.log(result);
+        res.status(200).json({
+            message: "event created successfully",
+            createdProperty: {
+                _id: result._id,
+                title: result.title,
+                description: result.description,
+                price: result.price,
+                date: result.price,
+                creator: result.creator,
+                request: {
+                    type: "GET",
+                    url: "http://localhost:4000/events/" + result._id
+                }
+            } 
+        });
     })
     .catch(err => console.log(err));
 
-    res.status(200).json({
-        message: "event created successfully",
-        createdProperty: {
-            _id: result._id,
-            title: result.title,
-            description: result.description,
-            price: result.price,
-            date: result.price,
-            creator: result.creator,
-            request: {
-                type: "GET",
-                url: "http://localhost:4000/events/" + result._id
-            }
-        } 
-    });
+    
 });
 
 router.get('/:eventId', (req, res, next) => {
