@@ -5,14 +5,12 @@ const Event = require('../models/event');
 
 router.get('/', (req, res, next) => {
     Event.find()
-    // .select("title, description price date creator _id")
+    .select("title, description price date creator _id")
     .exec()
     .then(docs => {
-        console.log(docs);
         res.status(200).json(docs);
     })
     .catch(err => {
-        console.log(err);
         res.status(500).json({
             error: err
         });
@@ -68,7 +66,7 @@ router.get('/:eventId', (req, res, next) => {
             res.status(404)
             .json({
                 message: "No valid entry found for Event"
-            })
+            });
         }
     })
     .catch(err => {
