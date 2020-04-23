@@ -5,7 +5,7 @@ const Event = require('../models/event');
 
 router.get('/', (req, res, next) => {
     Event.find()
-    .select("title, description price date creator _id")
+    .select("title description price date creator _id")
     .exec()
     .then(docs => {
         const response = {
@@ -19,7 +19,7 @@ router.get('/', (req, res, next) => {
                     date: doc.price,
                     creator: doc.creator,
                     request: {
-                        type: "GET",
+                        type: "GET, PATCH, DELETE",
                         url: "http://localhost:4000/events/" + doc._id
                     }
                 }
@@ -54,7 +54,7 @@ router.post('/', (req, res, next) => {
                 date: result.price,
                 creator: result.creator,
                 request: {
-                    type: "GET",
+                    type: "GET, PATCH, DELETE",
                     url: "http://localhost:4000/events/" + result._id
                 }
             } 
@@ -68,14 +68,14 @@ router.post('/', (req, res, next) => {
 router.get('/:eventId', (req, res, next) => {
     const id = req.params.eventId;
     Event.findById(id)
-    .select("title, description price date creator _id")
+    .select("title description price date creator _id")
     .exec()
     .then(doc => {
         if (doc) {
             res.status(200).json({
                 event: doc,
                 request: {
-                    type: "GET",
+                    type: "PATCH, DELETE",
                     url: "http://localhost:4000/events/" + doc._id
                 }
             });
@@ -104,7 +104,7 @@ router.patch('/:eventId', (req, res, next) => {
             res.status(200).json({
                 message: 'Event updated successfully',
                 request: {
-                    type: "GET",
+                    type: "GET, PATCH, DELETE",
                     url: "http://localhost:4000/events/" + id
                 }
             });
