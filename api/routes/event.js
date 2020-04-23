@@ -42,7 +42,7 @@ router.post('/', (req, res, next) => {
             creator: result.creator,
             request: {
                 type: "GET",
-                url: "http://localhost:3000/events/" + result._id
+                url: "http://localhost:4000/events/" + result._id
             }
         } 
     });
@@ -59,7 +59,7 @@ router.get('/:eventId', (req, res, next) => {
                 event: doc,
                 request: {
                     type: "GET",
-                    url: "http://localhost:3000/events/" + doc._id
+                    url: "http://localhost:4000/events/" + doc._id
                 }
             });
         } else {
@@ -88,7 +88,7 @@ router.patch('/:eventId', (req, res, next) => {
                 message: 'Event updated successfully',
                 request: {
                     type: "GET",
-                    url: "http://localhost:3000/events/" + id
+                    url: "http://localhost:4000/events/" + id
                 }
             });
         })
@@ -108,7 +108,7 @@ router.delete('/:eventId', (req, res, next) => {
                 message: 'Event deleted successfully',
                 request: {
                     type: "POST",
-                    url: "http://localhost:3000/events/",
+                    url: "http://localhost:4000/events/",
                     body: {
                         title: 'String',
                         description: 'String',
