@@ -49,10 +49,29 @@ router.patch('/:bookingId', (req, res, next) => {
 });
 
 router.delete('/:bookingId', (req, res, next) => {
-    const id = req.params.bookingId;
-        res.status(200).json({
-        message: 'delete single'
-    });
+    const id = req.params.eventId;
+    Event.remove({ _id: id})
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: 'Event deleted successfully',
+                request: {
+                    type: "POST",
+                    url: "http://localhost:4000/events/",
+                    body: {
+                        title: 'String',
+                        description: 'String',
+                        price: 'String',
+                        date: 'String',
+                        creator: 'String'}
+                }
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            });
+        });
 });
 
 module.exports = router;
