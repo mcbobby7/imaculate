@@ -41,13 +41,6 @@ router.get('/:bookingId', (req, res, next) => {
     });
 });
 
-router.patch('/:bookingId', (req, res, next) => {
-    const id = req.params.bookingId;
-        res.status(200).json({
-        message: 'patch single'
-    });
-});
-
 router.delete('/:bookingId', (req, res, next) => {
     const id = req.params.bookingId;
     Booking.remove({ _id: id})
