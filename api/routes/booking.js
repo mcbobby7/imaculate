@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const Booking = require('../models/booking');
 
 
@@ -22,10 +23,10 @@ router.post('/', (req, res, next) => {
                 _id: result._id,
                 event: result.event,
                 user: result.user,
-                request: {
-                    type: "GET, PATCH, DELETE",
-                    url: "http://localhost:4000/bookings/" + result._id
-                }
+                // request: {
+                //     type: "GET, PATCH, DELETE",
+                //     url: "http://localhost:4000/bookings/" + result._id
+                // }
             } 
         });
     })
