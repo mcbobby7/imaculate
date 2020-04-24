@@ -34,13 +34,6 @@ router.post('/', (req, res, next) => {
 
 });
 
-router.get('/:bookingId', (req, res, next) => {
-    const id = req.params.bookingId;
-        res.status(200).json({
-        message: 'handling single'
-    });
-});
-
 router.delete('/:bookingId', (req, res, next) => {
     const id = req.params.bookingId;
     Booking.remove({ _id: id})
