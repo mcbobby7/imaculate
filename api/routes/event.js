@@ -20,7 +20,7 @@ router.get('/', (req, res, next) => {
                     creator: doc.creator,
                     request: {
                         type: "GET, PATCH, DELETE",
-                        url: "http://localhost:4000/events/" + doc._id
+                        url: `http://localhost:4000/events/${doc._id}`
                     }
                 }
             })
