@@ -42,7 +42,7 @@ router.get('/:userId', (req, res, next) => {
             res.status(200).json({
                 event: doc,
                 request: {
-                    type: "PATCH, DELETE",
+                    type: "PATCH, DELETE, GET",
                     url: "http://localhost:4000/users/" + doc._id
                 }
             });
