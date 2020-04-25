@@ -32,3 +32,30 @@ router.get('/', (req, res, next) => {
         });
     });
 });
+
+router.get('/:eventId', (req, res, next) => {
+    const id = req.params.eventId;
+    Event.findById(id)
+    .select("title description price date creator _id")
+    .exec()
+    .then(doc => {
+        if (doc) {
+            res.status(200).json({
+                event: doc,
+                request: {
+                    type: "PATCH, DELETE",
+                    url: "http://localhost:4000/events/" + doc._id
+                }
+            });
+        } else {
+            res.status(404)
+            .json({
+                message: "No valid entry found for Event"
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).json({ error: err});
+    });
+        
+});
