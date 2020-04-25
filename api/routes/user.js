@@ -5,7 +5,6 @@ const User = require('../models/user');
 
 router.get('/', (req, res, next) => {
     User.find()
-    .select("title description price date creator _id")
     .exec()
     .then(docs => {
         const response = {
