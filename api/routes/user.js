@@ -19,7 +19,7 @@ router.get('/', (req, res, next) => {
                     creator: doc.creator,
                     request: {
                         type: "GET, PATCH, DELETE",
-                        url: `http://localhost:4000/events/${doc._id}`
+                        url: `http://localhost:4000/user/${doc._id}`
                     }
                 }
             })
@@ -33,10 +33,9 @@ router.get('/', (req, res, next) => {
     });
 });
 
-router.get('/:eventId', (req, res, next) => {
-    const id = req.params.eventId;
-    Event.findById(id)
-    .select("title description price date creator _id")
+router.get('/:userId', (req, res, next) => {
+    const id = req.params.userId;
+    User.findById(id)
     .exec()
     .then(doc => {
         if (doc) {
@@ -44,13 +43,13 @@ router.get('/:eventId', (req, res, next) => {
                 event: doc,
                 request: {
                     type: "PATCH, DELETE",
-                    url: "http://localhost:4000/events/" + doc._id
+                    url: "http://localhost:4000/users/" + doc._id
                 }
             });
         } else {
             res.status(404)
             .json({
-                message: "No valid entry found for Event"
+                message: "Sorry, User does not exist"
             });
         }
     })
