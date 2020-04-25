@@ -2,3 +2,34 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 const User = require('../models/user');
+
+router.get('/', (req, res, next) => {
+    User.find()
+    .select("title description price date creator _id")
+    .exec()
+    .then(docs => {
+        const response = {
+            count: docs.length,
+            events: docs.map(doc => {
+                return {
+                    _id: doc._id,
+                    title: doc.title,
+                    description: doc.description,
+                    price: doc.price,
+                    date: doc.price,
+                    creator: doc.creator,
+                    request: {
+                        type: "GET, PATCH, DELETE",
+                        url: `http://localhost:4000/events/${doc._id}`
+                    }
+                }
+            })
+        }
+        res.status(200).json(response);
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: err
+        });
+    });
+});
