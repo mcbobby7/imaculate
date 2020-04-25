@@ -11,12 +11,12 @@ router.get('/', (req, res, next) => {
             count: docs.length,
             events: docs.map(doc => {
                 return {
-                    _id: doc._id,
-                    title: doc.title,
-                    description: doc.description,
-                    price: doc.price,
-                    date: doc.price,
-                    creator: doc.creator,
+                    // _id: doc._id,
+                    // title: doc.title,
+                    // description: doc.description,
+                    // price: doc.price,
+                    // date: doc.price,
+                    // creator: doc.creator,
                     request: {
                         type: "GET, PATCH, DELETE",
                         url: `http://localhost:4000/user/${doc._id}`
