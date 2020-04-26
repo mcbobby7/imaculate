@@ -99,7 +99,18 @@ router.get('/:userId', (req, res, next) => {
 });
 
 router.delete('/:userId', (req, res, next) => {
-    User.remove(id)
+    User.remove({ _id: req.params.id })
+    .exec()
+    .then(res => {
+        res.status(200).json({
+            message: "User deleted successfully"
+        });
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: err
+        });
+    });
     
         
 });
