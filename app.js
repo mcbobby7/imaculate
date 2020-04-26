@@ -32,7 +32,7 @@ app.use('/events', eventRoute);
 app.use('/user', userRoute);
 
 app.use((req, res, next) => {
-    const error = new Error('not found');
+    const error = new Error('route not found');
     error.status = 404;
     next(error);
 })
