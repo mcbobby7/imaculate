@@ -99,7 +99,8 @@ router.get('/:userId', (req, res, next) => {
 });
 
 router.delete('/:userId', (req, res, next) => {
-    User.remove({ _id: req.params.id })
+    const id = req.params.userId;
+    User.remove({ _id: id })
     .exec()
     .then(res => {
         res.status(200).json({
