@@ -97,3 +97,9 @@ router.get('/:userId', (req, res, next) => {
     });
         
 });
+
+router.delete('/:userId', (req, res, next) => {
+    User.remove(id)
+    
+        
+});
