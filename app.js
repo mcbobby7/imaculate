@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 
 const bookingRoute = require('./api/routes/booking')
 const eventRoute = require('./api/routes/event')
+const userRoute = require('./api/routes/user')
 
 mongoose.connect("mongodb+srv://bobby:1234@cluster0-lc4fu.mongodb.net/gql?retryWrites=true&w=majority");
 
@@ -28,6 +29,7 @@ app.use((req, res, next) => {
 
 app.use('/bookings', bookingRoute);
 app.use('/events', eventRoute);
+app.use('/user', userRoute);
 
 app.use((req, res, next) => {
     const error = new Error('not found');
