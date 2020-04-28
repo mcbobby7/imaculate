@@ -30,8 +30,20 @@ router.post('/signup', (req, res, next) => {
                     });
                     user.save()
                     .then(result => {
+                        const token = jwt.sign({
+                            email: result.email,
+                            userId: result._id
+                        }, 
+                            'secreteKey', 
+                            {
+                                expiresIn: "5h"
+                            },
+                        );
                         res.status(201).json({
-                            message: "User created successfuly"
+                            message: "User created successfuly",
+                            firstName: result.firstName,
+                            userId: result._id,
+                            token
                         });
                     })
                     .catch(err => {
