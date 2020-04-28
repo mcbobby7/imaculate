@@ -60,8 +60,13 @@ router.post('/login', (req, res, next) => {
                 });
             }
             if (result) {
-                return
+                return res.status(200).json({
+                    message: 'Authentication successful'
+                });
             }
+            res.status(401).json({
+                message: 'Authentication Failed'
+            });
         })
     })
     .catch()
