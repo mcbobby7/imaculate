@@ -35,7 +35,7 @@ router.get('/', checkAuth, (req, res, next) => {
     });
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', checkAuth, (req, res, next) => {
     const event = new Event({
         _id: new mongoose.Types.ObjectId(),
         title: req.body.title,
