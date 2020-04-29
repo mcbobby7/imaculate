@@ -24,3 +24,19 @@ exports.post_booking = (req, res, next) => {
     .catch(err => console.log(err));
 
 }
+
+exports.deleteBooking = (req, res, next) => {
+    const id = req.params.bookingId;
+    Booking.remove({ _id: id})
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: 'Event deleted successfully',
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            });
+        });
+}
