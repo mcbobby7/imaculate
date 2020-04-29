@@ -117,7 +117,7 @@ router.patch('/:eventId', checkAuth, (req, res, next) => {
         });
 });
 
-router.delete('/:eventId', (req, res, next) => {
+router.delete('/:eventId', checkAuth, (req, res, next) => {
     const id = req.params.eventId;
     Event.remove({ _id: id})
         .exec()
