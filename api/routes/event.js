@@ -66,7 +66,7 @@ router.post('/', checkAuth, (req, res, next) => {
     
 });
 
-router.get('/:eventId', (req, res, next) => {
+router.get('/:eventId', checkAuth, (req, res, next) => {
     const id = req.params.eventId;
     Event.findById(id)
     .select("title description price date creator _id")
