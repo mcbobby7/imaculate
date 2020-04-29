@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const router = express.Router();
 const Event = require('../models/event');
 const checkAuth = require('../middleware/check-auth');
+const Event_controller = require('../controllers/events')
 
 router.get('/', checkAuth, (req, res, next) => {
     Event.find()
@@ -35,36 +36,7 @@ router.get('/', checkAuth, (req, res, next) => {
     });
 });
 
-router.post('/', checkAuth, (req, res, next) => {
-    const event = new Event({
-        _id: new mongoose.Types.ObjectId(),
-        title: req.body.title,
-        description: req.body.description,
-        price: req.body.price,
-        date: req.body.price,
-        creator: req.body.creator,
-    });
-    event.save().then(result => {
-        res.status(200).json({
-            message: "event created successfully",
-            createdProperty: {
-                _id: result._id,
-                title: result.title,
-                description: result.description,
-                price: result.price,
-                date: result.price,
-                creator: result.creator,
-                request: {
-                    type: "GET, PATCH, DELETE",
-                    url: "http://localhost:4000/events/" + result._id
-                }
-            } 
-        });
-    })
-    .catch(err => console.log(err));
-
-    
-});
+router.post('/', checkAuth, Event_controller.post_event );
 
 router.get('/:eventId', checkAuth, (req, res, next) => {
     const id = req.params.eventId;
