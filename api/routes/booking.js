@@ -2,15 +2,16 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Booking = require('../models/booking');
+const checkAuth = require('../middleware/check-auth');
 
 
-router.get('/', (req, res, next) => {
+router.get('/', checkAuth, (req, res, next) => {
     res.status(200).json({
         message: 'handling Get'
     });
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', checkAuth, (req, res, next) => {
     const booking = new Booking({
         _id: new mongoose.Types.ObjectId(),
         event: req.body.event,
