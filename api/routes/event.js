@@ -1,7 +1,5 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const router = express.Router();
-const Event = require('../models/event');
 const checkAuth = require('../middleware/check-auth');
 const Event_controller = require('../controllers/events')
 
