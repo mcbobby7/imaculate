@@ -4,6 +4,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user');
+const checkAuth = require('../middleware/check-auth');
 
 
 router.post('/signup', (req, res, next) => {
@@ -97,7 +98,7 @@ router.post('/login', (req, res, next) => {
     .catch()
 });
 
-router.get('/', (req, res, next) => {
+router.get('/', checkAuth, (req, res, next) => {
     User.find()
     .exec()
     .then(docs => {
@@ -127,7 +128,7 @@ router.get('/', (req, res, next) => {
     });
 });
 
-router.get('/:userId', (req, res, next) => {
+router.get('/:userId', checkAuth, (req, res, next) => {
     const id = req.params.userId;
     User.findById(id)
     .exec()
@@ -153,7 +154,7 @@ router.get('/:userId', (req, res, next) => {
         
 });
 
-router.delete('/:userId', (req, res, next) => {
+router.delete('/:userId', checkAuth, (req, res, next) => {
     const id = req.params.userId;
     User.remove({ _id: id })
     .exec()
