@@ -1,10 +1,7 @@
-const express = require('express');
 const mongoose = require('mongoose');
-const router = express.Router();
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user');
-const checkAuth = require('../middleware/check-auth');
 
 exports.login = (req, res, next) => {
     User.find({ email: req.body.email })
