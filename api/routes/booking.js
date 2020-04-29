@@ -35,7 +35,7 @@ router.post('/', checkAuth, (req, res, next) => {
 
 });
 
-router.delete('/:bookingId', (req, res, next) => {
+router.delete('/:bookingId', checkAuth, (req, res, next) => {
     const id = req.params.bookingId;
     Booking.remove({ _id: id})
         .exec()
