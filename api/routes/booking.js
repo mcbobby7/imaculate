@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Booking = require('../models/booking');
 const checkAuth = require('../middleware/check-auth');
+const PostBooking = require('../controllers/bookings')
 
 
 router.get('/', checkAuth, (req, res, next) => {
@@ -11,29 +12,7 @@ router.get('/', checkAuth, (req, res, next) => {
     });
 });
 
-router.post('/', checkAuth, (req, res, next) => {
-    const booking = new Booking({
-        _id: new mongoose.Types.ObjectId(),
-        event: req.body.event,
-        user: req.body.user,
-    });
-    booking.save().then(result => {
-        res.status(200).json({
-            message: "Booked succesfully",
-            createdProperty: {
-                _id: result._id,
-                event: result.event,
-                user: result.user,
-                request: {
-                    type: "GET, DELETE",
-                    url: `http://localhost:4000/bookings/${result._id}`
-                }
-            } 
-        });
-    })
-    .catch(err => console.log(err));
-
-});
+router.post('/', checkAuth, PostBooking.post_booking );
 
 router.delete('/:bookingId', checkAuth, (req, res, next) => {
     const id = req.params.bookingId;
