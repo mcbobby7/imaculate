@@ -5,36 +5,7 @@ const Event = require('../models/event');
 const checkAuth = require('../middleware/check-auth');
 const Event_controller = require('../controllers/events')
 
-router.get('/', checkAuth, (req, res, next) => {
-    Event.find()
-    .select("title description price date creator _id")
-    .exec()
-    .then(docs => {
-        const response = {
-            count: docs.length,
-            events: docs.map(doc => {
-                return {
-                    _id: doc._id,
-                    title: doc.title,
-                    description: doc.description,
-                    price: doc.price,
-                    date: doc.price,
-                    creator: doc.creator,
-                    request: {
-                        type: "GET, PATCH, DELETE",
-                        url: `http://localhost:4000/events/${doc._id}`
-                    }
-                }
-            })
-        }
-        res.status(200).json(response);
-    })
-    .catch(err => {
-        res.status(500).json({
-            error: err
-        });
-    });
-});
+router.get('/', checkAuth, Event_controller.get_events);
 
 router.post('/', checkAuth, Event_controller.post_event );
 
