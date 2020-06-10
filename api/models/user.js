@@ -23,29 +23,7 @@ const userSchema = new Schema({
     profilePic: {
         type: String,
         required: false
-    },
-    occupation: {
-        type: String,
-        required: false
-    },
-    github: {
-        type: String,
-        required: false
-    },
-    twitter: {
-        type: String,
-        required: false
-    },
-    linkedIn: {
-        type: String,
-        required: false
-    },
-    createdEvents: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Event'
-        }
-    ]
+    }
     
 });
 
