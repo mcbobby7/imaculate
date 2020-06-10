@@ -95,7 +95,7 @@ exports.single_contact = (req, res, next) => {
 }
 
 
-exports.delete_event = (req, res, next) => {
+exports.delete_contact = (req, res, next) => {
     const id = req.params.contactId;
     Contact.remove({ _id: id})
         .exec()

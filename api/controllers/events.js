@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Event = require('../models/event');
+const Event = require('../models/blog');
 
 
 exports.post_event = (req, res, next) => {

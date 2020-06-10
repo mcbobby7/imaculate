@@ -3,16 +3,16 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const eventSchema = new Schema({
+const blogSchema = new Schema({
+    body: {
+        type: String,
+        required: true
+    },
     title: {
         type: String,
         required: true
     },
-    description: {
-        type: String,
-        required: true
-    },
-    price: {
+    imgUrl: {
         type: String,
         required: true
     },
@@ -20,11 +20,10 @@ const eventSchema = new Schema({
         type: String,
         required: true
     },
-    creator: {
-            type: Schema.Types.ObjectId,
-            ref: 'User'
+    tag: {
+        type: String
     }
     
 });
 
-module.exports = mongoose.model('Event', eventSchema);
+module.exports = mongoose.model('Blog', blogSchema);
