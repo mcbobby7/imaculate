@@ -67,15 +67,15 @@ exports.get_contacts = (req, res, next) => {
     });
 }
 
-exports.single_event = (req, res, next) => {
-    const id = req.params.eventId;
-    Event.findById(id)
-    .select("title description price date creator _id")
+exports.single_contact = (req, res, next) => {
+    const id = req.params.contactId;
+    Contact.findById(id)
+    .select("name email phone subject message creator _id")
     .exec()
     .then(doc => {
         if (doc) {
             res.status(200).json({
-                event: doc,
+                contact: doc,
                 request: {
                     type: "PATCH, DELETE",
                     url: "http://localhost:4000/events/" + doc._id
@@ -84,7 +84,7 @@ exports.single_event = (req, res, next) => {
         } else {
             res.status(404)
             .json({
-                message: "No valid entry found for Event"
+                message: "No valid entry found"
             });
         }
     })
@@ -94,45 +94,23 @@ exports.single_event = (req, res, next) => {
         
 }
 
-exports.patch_event = (req, res, next) => {
-    const id = req.params.eventId;
-    const updateOps = {};
-    for (const ops of req.body) {
-        updateOps[ops.propName] = ops.value;
-    }
-    Event.update({ _id: id}, { $set: updateOps })
-        .exec()
-        .then(result => {
-            res.status(200).json({
-                message: 'Event updated successfully',
-                request: {
-                    type: "GET, PATCH, DELETE",
-                    url: "http://localhost:4000/events/" + id
-                }
-            });
-        })
-        .catch(err => {
-            res.status(500).json({
-                error: err
-            });
-        });
-}
 
 exports.delete_event = (req, res, next) => {
-    const id = req.params.eventId;
-    Event.remove({ _id: id})
+    const id = req.params.contactId;
+    Contact.remove({ _id: id})
         .exec()
         .then(result => {
             res.status(200).json({
-                message: 'Event deleted successfully',
+                message: 'deleted successfully',
                 request: {
                     type: "POST",
                     url: "http://localhost:4000/events/",
                     body: {
-                        title: 'String',
-                        description: 'String',
-                        price: 'String',
-                        date: 'String',
+                        name: 'String',
+                        email: 'String',
+                        phone: 'String',
+                        subject: 'String',
+                        message: 'String',
                         creator: 'String'}
                 }
             });
