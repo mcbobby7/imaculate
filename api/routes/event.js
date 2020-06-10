@@ -9,7 +9,7 @@ router.post('/', checkAuth, Event_controller.post_event );
 
 router.get('/:eventId', checkAuth, Event_controller.single_event);
 
-router.patch('/:eventId', checkAuth, Event_controller.post_event);
+router.patch('/:eventId', checkAuth, Event_controller.patch_event);
 
 router.delete('/:eventId', checkAuth, Event_controller.delete_event);
 
