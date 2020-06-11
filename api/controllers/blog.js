@@ -33,24 +33,24 @@ exports.post_blog = (req, res, next) => {
     
 }
 
-exports.get_events = (req, res, next) => {
-    Event.find()
-    .select("title description price date creator _id")
+exports.get_blogs = (req, res, next) => {
+    Blog.find()
+    .select("body title imgUrl date tag _id")
     .exec()
     .then(docs => {
         const response = {
             count: docs.length,
-            events: docs.map(doc => {
+            blogs: docs.map(doc => {
                 return {
                     _id: doc._id,
+                    body: doc.body,
                     title: doc.title,
-                    description: doc.description,
-                    price: doc.price,
-                    date: doc.price,
-                    creator: doc.creator,
+                    imgUrl: doc.imgUrl,
+                    date: doc.date,
+                    tag: doc.tag,
                     request: {
                         type: "GET, PATCH, DELETE",
-                        url: `http://localhost:4000/events/${doc._id}`
+                        url: `http://localhost:4000/blog/${doc._id}`
                     }
                 }
             })
@@ -64,10 +64,10 @@ exports.get_events = (req, res, next) => {
     });
 }
 
-exports.single_event = (req, res, next) => {
-    const id = req.params.eventId;
-    Event.findById(id)
-    .select("title description price date creator _id")
+exports.single_blog = (req, res, next) => {
+    const id = req.params.blogId;
+    Blog.findById(id)
+    .select("body title imgUrl date tag _id")
     .exec()
     .then(doc => {
         if (doc) {
@@ -75,13 +75,13 @@ exports.single_event = (req, res, next) => {
                 event: doc,
                 request: {
                     type: "PATCH, DELETE",
-                    url: "http://localhost:4000/events/" + doc._id
+                    url: "http://localhost:4000/blog/" + doc._id
                 }
             });
         } else {
             res.status(404)
             .json({
-                message: "No valid entry found for Event"
+                message: "No valid entry found for blog"
             });
         }
     })
@@ -91,20 +91,20 @@ exports.single_event = (req, res, next) => {
         
 }
 
-exports.patch_event = (req, res, next) => {
-    const id = req.params.eventId;
+exports.patch_blog = (req, res, next) => {
+    const id = req.params.blogId;
     const updateOps = {};
     for (const ops of req.body) {
         updateOps[ops.propName] = ops.value;
     }
-    Event.update({ _id: id}, { $set: updateOps })
+    Blog.update({ _id: id}, { $set: updateOps })
         .exec()
         .then(result => {
             res.status(200).json({
-                message: 'Event updated successfully',
+                message: 'blog updated successfully',
                 request: {
                     type: "GET, PATCH, DELETE",
-                    url: "http://localhost:4000/events/" + id
+                    url: "http://localhost:4000/blog/" + id
                 }
             });
         })
@@ -115,22 +115,22 @@ exports.patch_event = (req, res, next) => {
         });
 }
 
-exports.delete_event = (req, res, next) => {
-    const id = req.params.eventId;
-    Event.remove({ _id: id})
+exports.delete_blog = (req, res, next) => {
+    const id = req.params.blogId;
+    Blog.remove({ _id: id})
         .exec()
         .then(result => {
             res.status(200).json({
-                message: 'Event deleted successfully',
+                message: 'blog deleted successfully',
                 request: {
                     type: "POST",
-                    url: "http://localhost:4000/events/",
+                    url: "http://localhost:4000/blog/",
                     body: {
+                        body: 'String',
                         title: 'String',
-                        description: 'String',
-                        price: 'String',
+                        imgUrl: 'String',
                         date: 'String',
-                        creator: 'String'}
+                        tag: 'String'}
                 }
             });
         })
