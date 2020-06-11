@@ -5,7 +5,7 @@ const morgan = require('morgan')
 const mongoose = require('mongoose')
 
 const bookingRoute = require('./api/routes/booking')
-const eventRoute = require('./api/routes/event')
+const blogRoute = require('./api/routes/blog')
 const userRoute = require('./api/routes/user')
 const contactRoute = require('./api/routes/contactUs')
 
@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 })
 
 app.use('/bookings', bookingRoute);
-app.use('/events', eventRoute);
+app.use('/blog', blogRoute);
 app.use('/user', userRoute);
 app.use('/contact', contactRoute);
 

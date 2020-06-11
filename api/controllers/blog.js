@@ -1,29 +1,29 @@
 const mongoose = require('mongoose');
-const Event = require('../models/blog');
+const Blog = require('../models/blog');
 
 
-exports.post_event = (req, res, next) => {
-    const event = new Event({
+exports.post_blog = (req, res, next) => {
+    const blog = new Blog({
         _id: new mongoose.Types.ObjectId(),
+        body: req.body.body,
         title: req.body.title,
-        description: req.body.description,
-        price: req.body.price,
-        date: req.body.price,
-        creator: req.body.creator,
+        imgUrl: req.body.imgUrl,
+        date: req.body.date,
+        tag: req.body.tag,
     });
-    event.save().then(result => {
+    blog.save().then(result => {
         res.status(200).json({
-            message: "event created successfully",
+            message: "blog created successfully",
             createdProperty: {
                 _id: result._id,
+                body: result.body,
                 title: result.title,
-                description: result.description,
-                price: result.price,
-                date: result.price,
-                creator: result.creator,
+                imgUrl: result.imgUrl,
+                date: result.data,
+                tag: result.tag,
                 request: {
                     type: "GET, PATCH, DELETE",
-                    url: "http://localhost:4000/events/" + result._id
+                    url: "http://localhost:4000/blog/" + result._id
                 }
             } 
         });
