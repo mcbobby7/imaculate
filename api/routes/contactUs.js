@@ -7,7 +7,7 @@ router.get('/', Contact_us_controller.get_contacts);
 
 router.post('/', Contact_us_controller.post_contact );
 
-router.get('/:contactId', Contact_us_controller.single_contact);
+router.patch('/:contactId', Contact_us_controller.single_contact);
 
 router.delete('/:contactId', Contact_us_controller.delete_contact);
 
