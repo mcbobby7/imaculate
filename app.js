@@ -12,6 +12,7 @@ const contactRoute = require('./api/routes/contactUs')
 mongoose.connect("mongodb+srv://bobby:1234@cluster0-lc4fu.mongodb.net/gql?retryWrites=true&w=majority");
 
 app.use(morgan('dev'));
+app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
