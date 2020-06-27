@@ -2,31 +2,31 @@ const mongoose = require('mongoose');
 const Blog = require('../models/blog');
 const multer = require('multer');
 
-const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-      cb(null, './uploads/');
-    },
-    filename: function(req, file, cb) {
-      cb(null, new Date().toISOString() + file.originalname);
-    }
-  });
+// const storage = multer.diskStorage({
+//     destination: function(req, file, cb) {
+//       cb(null, 'uploads/');
+//     },
+//     filename: function(req, file, cb) {
+//       cb(null, new Date().toISOString() + file.originalname);
+//     }
+//   });
   
-  const fileFilter = (req, file, cb) => {
-    // reject a file
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-      cb(null, true);
-    } else {
-      cb(null, false);
-    }
-  };
+//   const fileFilter = (req, file, cb) => {
+//     // reject a file
+//     if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+//       cb(null, true);
+//     } else {
+//       cb(null, false);
+//     }
+//   };
   
-  const upload = multer({
-    storage: storage,
-    limits: {
-      fileSize: 1024 * 1024 * 5
-    },
-    fileFilter: fileFilter
-  });
+//   const upload = multer({
+//     storage: storage,
+//     limits: {
+//       fileSize: 1024 * 1024 * 5
+//     },
+//     fileFilter: fileFilter
+//   });
 
 
 exports.post_blog = (req, res, next) => {
@@ -34,20 +34,19 @@ exports.post_blog = (req, res, next) => {
         _id: new mongoose.Types.ObjectId(),
         body: req.body.body,
         title: req.body.title,
-        imgUrl: req.body.imgUrl,
         date: req.body.date,
         tag: req.body.tag,
         image: req.file.path,
 
     });
     blog.save().then(result => {
+        console.log(result);
         res.status(200).json({
             message: "blog created successfully",
             createdProperty: {
                 _id: result._id,
                 body: result.body,
                 title: result.title,
-                imgUrl: result.imgUrl,
                 date: result.data,
                 tag: result.tag,
                 image: result.image,
