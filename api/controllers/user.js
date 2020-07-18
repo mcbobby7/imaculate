@@ -107,7 +107,6 @@ exports.get_users = (req, res, next) => {
                     // description: doc.description,
                     // price: doc.price,
                     // date: doc.price,
-                    // creator: doc.creator,
                     request: {
                         type: "GET, PATCH, DELETE",
                         url: `http://localhost:4000/user/${doc._id}`
